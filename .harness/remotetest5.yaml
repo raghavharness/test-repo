@@ -14,8 +14,6 @@ stages:
               echo "Hello world"
         - name: Run Tests
           type: run_tests
-          strategy:
-            parallelism: 3
           spec:
             language: Java
             build_tool: Maven
@@ -24,3 +22,5 @@ stages:
               type: JUnit
               paths:
                 - "**/*.xml"
+            strategy:
+              parallelism: 3
