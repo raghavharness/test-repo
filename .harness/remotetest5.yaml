@@ -4,6 +4,7 @@ stages:
   - name: Build and test Java app
     type: ci
     spec:
+      
       clone:
         disabled: false
       steps:
@@ -22,5 +23,5 @@ stages:
               type: JUnit
               paths:
                 - "**/*.xml"
-            strategy:
-              parallelism: 3
+          strategy:
+            parallelism: 3
