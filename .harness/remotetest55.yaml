@@ -1,0 +1,14 @@
+version: 1
+name: Java with Gradle 5
+stages:
+  - name: Build and test Java app
+    type: ci
+    spec:
+      clone:
+        disabled: false
+      steps:
+        - name: Build
+          type: script
+          spec:
+            run: |-
+              echo "Hello world"
