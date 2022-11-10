@@ -4,8 +4,6 @@ stages:
   - name: Build and test Java app
     type: ci
     spec:
-      clone:
-        disabled: true
       steps:
         - name: Build
           type: script
