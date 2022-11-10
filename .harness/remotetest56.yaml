@@ -1,0 +1,16 @@
+version: 1
+name: Java with Gradle stage parallel
+stages:
+  - name: Build and test Java app
+    type: ci
+    spec:
+      strategy:
+        parallelism: 3
+      clone:
+        disabled: false
+      steps:
+        - name: Build
+          type: script
+          spec:
+            run: |-
+              echo "Hello world"
