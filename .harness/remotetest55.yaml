@@ -5,7 +5,7 @@ stages:
     type: ci
     spec:
       clone:
-        disabled: false
+        disabled: true
       steps:
         - name: Build
           type: script
