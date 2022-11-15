@@ -8,7 +8,6 @@ stages:
         disabled: false
         repository:
            connector: RaghavGitConnector
-           name: test-repo
            branch: develop
       steps:
         - name: Build
