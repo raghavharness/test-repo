@@ -9,7 +9,7 @@ stages:
         repository:
            connector: RaghavGitConnector
            name: test-repo
-           branch: main
+           branch: develop
       steps:
         - name: Build
           type: script
