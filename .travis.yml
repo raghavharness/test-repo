@@ -1,0 +1,15 @@
+sudo: required
+
+language: ruby
+
+services:
+  - docker
+
+before_install:
+  - echo "Testing Docker Hub credentials"
+  - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+  - echo "Docker Hub credentials are working"
+  - docker build -t test -f Dockerfile2 .
+
+after_success:
+  - echo "Test Success"
