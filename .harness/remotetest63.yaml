@@ -1,15 +1,26 @@
 version: 1
 name: Java with Gradle Remote Clone
+inputs:
+  image:
+    type: string
+    desc: image name
+    default: golang
+  repo:
+    type: string
+    desc: repository name
+    required: true
+    prompt: true
+  count:
+    type: number
+  password:
+    type: secret
+    desc: docker password
+    enums: [secret1, secret2]
+    required: true
 stages:
   - name: Build and test Java app
     type: ci
     spec:
-      clone:
-        disabled: false
-        repository:
-           connector: GitHubAccount
-           name: harness-core
-           branch: develop
       steps:
         - name: Build
           type: script
