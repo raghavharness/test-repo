@@ -18,7 +18,7 @@ inputs:
     enums: [secret1, secret2]
     required: true
 repository:
-  name: test-repo
+  name: <+stage.variables.abc>
   connector: RaghavGitConnector
 stages:
   - name: Build and test Java app
