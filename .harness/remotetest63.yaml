@@ -30,3 +30,8 @@ stages:
           spec:
             run: |-
               echo "Hello world"
+    variables:
+       - name: abc
+         type: String
+         description: ""
+         value: "123"
