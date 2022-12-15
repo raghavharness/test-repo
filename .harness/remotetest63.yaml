@@ -17,12 +17,12 @@ inputs:
     desc: docker password
     enums: [secret1, secret2]
     required: true
-repository:
-   disabled: true
 stages:
   - name: Build and test Java app
     type: ci
     spec:
+      clone:
+        disabled: true
       steps:
         - name: Build
           type: script
