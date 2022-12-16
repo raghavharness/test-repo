@@ -19,6 +19,9 @@ inputs:
     required: true
 repository:
     name: harness/harness-core
+    reference:
+      type: branch
+      value: develop
 stages:
   - name: output variable
     type: ci
