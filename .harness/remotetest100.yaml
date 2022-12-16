@@ -18,7 +18,7 @@ inputs:
     enums: [secret1, secret2]
     required: true
 repository:
-    connector: account.GithubAccount
+    connector: account.GitHubAccount
     name: harness/harness-core-ui
 stages:
   - name: output variable
