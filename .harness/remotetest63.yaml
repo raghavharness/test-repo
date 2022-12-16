@@ -18,7 +18,10 @@ inputs:
     enums: [secret1, secret2]
     required: true
 repository:
-   name: harness-core
+   connector: RaghavGitConnector
+   reference:
+      type: branch
+      value: develop
 stages:
   - name: Build and test Java app
     type: ci
