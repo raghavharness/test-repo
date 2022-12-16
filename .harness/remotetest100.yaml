@@ -17,6 +17,8 @@ inputs:
     desc: docker password
     enums: [secret1, secret2]
     required: true
+repository:
+    name: harness/harness-core
 stages:
   - name: output variable
     type: ci
