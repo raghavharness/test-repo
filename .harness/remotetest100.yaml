@@ -17,6 +17,8 @@ inputs:
     desc: docker password
     enums: [secret1, secret2]
     required: true
+repository:
+    connector: account.GithubConnector
 stages:
   - name: output variable
     type: ci
