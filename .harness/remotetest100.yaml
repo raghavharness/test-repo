@@ -18,10 +18,8 @@ inputs:
     enums: [secret1, secret2]
     required: true
 repository:
+    connector: account.GitHubAccount
     name: harness/harness-core
-    reference:
-      type: branch
-      value: develop
 stages:
   - name: output variable
     type: ci
