@@ -1,7 +1,7 @@
 version: 1
 name: Yaml Remote_1671525577029
 inputs:
-  image:
+  foo:
     type: string
     desc: image name
     default: golang
@@ -19,8 +19,6 @@ inputs:
       - secret1
       - secret2
     required: true
-repository:
-  name: drone-kaniko
 stages:
   - name: output variable
     type: ci
@@ -30,7 +28,9 @@ stages:
           type: script
           spec:
             image: alpine
-            run: export foo=bar
+            run: |-
+              echo <+inputs.foo>
+              export foo=bar
             shell: sh
             outputs:
               - foo
