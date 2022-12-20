@@ -20,7 +20,7 @@ inputs:
       - secret2
     required: true
 repository:
-  name: go-scm
+  name: drone-kaniko
 stages:
   - name: output variable
     type: ci
