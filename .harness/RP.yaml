@@ -33,7 +33,7 @@ pipeline:
                   identifier: Echo
                   spec:
                     connectorRef: docker
-                    image: alpine
+                    image: <+input>
                     shell: Sh
                     command: echo "hello"
                     envVariables:
