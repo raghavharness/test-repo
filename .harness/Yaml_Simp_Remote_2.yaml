@@ -1,0 +1,31 @@
+pipeline:
+  name: Yaml Simp Remote 2
+  identifier: Yaml_Simp_Remote_2
+  projectIdentifier: Raghav
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: build
+        identifier: build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: hello
+                  identifier: hello
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: <+input>
+                    shell: Sh
+                    command: echo "hello"
