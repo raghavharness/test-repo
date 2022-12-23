@@ -1,0 +1,19 @@
+inputSet:
+  identifier: "remoteis101"
+  name: "remoteis101"
+  orgIdentifier: "default"
+  projectIdentifier: "Raghav"
+  pipeline:
+    identifier: "Remote"
+    stages:
+    - stage:
+        identifier: "build"
+        type: "CI"
+        spec:
+          execution:
+            steps:
+            - step:
+                identifier: "Echo"
+                type: "Run"
+                spec:
+                  image: "alpine"
