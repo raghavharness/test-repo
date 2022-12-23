@@ -1,0 +1,4 @@
+version: 1
+name: set1
+inputs:
+  image: alpine:latest
