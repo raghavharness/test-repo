@@ -1,0 +1,38 @@
+version: 1
+name: Yaml Simp Remote
+inputs:
+  image:
+    type: string
+    desc: image name
+    default: golang
+  repo:
+    type: string
+    desc: repository name
+    required: true
+    prompt: true
+  count:
+    type: number
+  password:
+    type: secret
+    desc: docker password
+    enums: [secret1, secret2]
+    required: true
+stages:
+  - name: output variable
+    type: ci
+    spec:
+      steps:
+        - name: one test
+          type: script
+          spec:
+            image: alpine
+            run: export foo=bar
+            shell: sh
+            outputs:
+              - foo
+        - name: two
+          type: script
+          spec:
+            image: alpine
+            run: echo <+steps.one_test.output.outputVariables.foo>
+            pull: always
