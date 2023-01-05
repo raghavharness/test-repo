@@ -26,8 +26,3 @@ stages:
             image: alpine
             run: echo <+steps.one_test.output.outputVariables.foo>
             pull: always
-variables:
-  - name: dockersecret
-    type: Secret
-    description: ""
-    value: dockerpat
