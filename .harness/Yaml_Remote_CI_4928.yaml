@@ -18,7 +18,8 @@ stages:
           type: ci
           spec:
             steps:
-              - type: parallel
+              - type: group
+                name: step group
                 spec:
                   steps:
                     - name: one test
@@ -26,11 +27,11 @@ stages:
                       spec:
                         image: alpine
                         run: |-
-                          echo <+inputs.foo>
-                          export foo=bar
+                            echo <+inputs.foo>
+                            export foo=bar
                         shell: sh
                         outputs:
-                          - foo
+                            - foo
                     - name: two
                       type: script
                       spec:
