@@ -7,6 +7,7 @@ inputs:
     default: golang
 stages:
   - type: ci
+    name: stage1
     spec:
       steps:
         - name: one test
