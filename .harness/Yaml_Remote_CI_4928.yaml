@@ -36,4 +36,3 @@ stages:
               repo: raghavharness/test
               tags: latest
               dockerfile: Dockerfile2
-            pull: if-not-exists
