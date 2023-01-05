@@ -18,23 +18,19 @@ stages:
           type: ci
           spec:
             steps:
-              - type: group
-                name: step group
+              - name: one test
+                type: script
                 spec:
-                  steps:
-                    - name: one test
-                      type: script
-                      spec:
-                        image: alpine
-                        run: |-
-                            echo <+inputs.foo>
-                            export foo=bar
-                        shell: sh
-                        outputs:
-                            - foo
-                    - name: two
-                      type: script
-                      spec:
-                        image: alpine
-                        run: echo <+steps.one_test.output.outputVariables.foo>
-                        pull: always
+                  image: alpine
+                  run: |-
+                    echo <+inputs.foo>
+                    export foo=bar
+                  shell: sh
+                  outputs:
+                    - foo
+              - name: two
+                type: script
+                spec:
+                  image: alpine
+                  run: echo <+steps.one_test.output.outputVariables.foo>
+                  pull: always
