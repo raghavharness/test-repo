@@ -15,7 +15,7 @@ stages:
           spec:
             image: alpine
             run: |-
-              echo golang
+              echo <+inputs.foo>
               export foo=bar
             shell: sh
             outputs:
