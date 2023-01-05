@@ -4,30 +4,36 @@ inputs:
   foo:
     type: string
     desc: image name
-    default: golang2
+    default: golang
   repo:
     type: string
     desc: repository name
     required: true
     prompt: true
 stages:
-  - name: output variable
-    type: ci
+  - type: parallel
     spec:
-      steps:
-        - name: one test
-          type: script
+      stages:
+        - name: output variable
+          type: ci
           spec:
-            image: alpine
-            run: |-
-              echo <+inputs.foo>
-              export foo=bar
-            shell: sh
-            outputs:
-              - foo
-        - name: two
-          type: script
-          spec:
-            image: alpine
-            run: echo <+steps.one_test.output.outputVariables.foo>
-            pull: always
+            steps:
+              - type: parallel
+                spec:
+                  steps:
+                    - name: one test
+                      type: script
+                      spec:
+                        image: alpine
+                        run: |-
+                          echo <+inputs.foo>
+                          export foo=bar
+                        shell: sh
+                        outputs:
+                          - foo
+                    - name: two
+                      type: script
+                      spec:
+                        image: alpine
+                        run: echo <+steps.one_test.output.outputVariables.foo>
+                        pull: always
