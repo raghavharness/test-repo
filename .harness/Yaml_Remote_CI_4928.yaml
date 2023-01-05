@@ -4,7 +4,7 @@ inputs:
   foo:
     type: string
     desc: image name
-    default: golang
+    default: golang2
   repo:
     type: string
     desc: repository name
