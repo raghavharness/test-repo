@@ -10,15 +10,6 @@ inputs:
     desc: repository name
     required: true
     prompt: true
-  count:
-    type: number
-  password:
-    type: secret
-    desc: docker password
-    enums:
-      - secret1
-      - secret2
-    required: true
 stages:
   - name: output variable
     type: ci
