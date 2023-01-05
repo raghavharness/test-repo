@@ -18,19 +18,22 @@ stages:
           type: ci
           spec:
             steps:
-              - name: one test
-                type: script
+              - type: parallel
                 spec:
-                  image: alpine
-                  run: |-
-                    echo <+inputs.foo>
-                    export foo=bar
-                  shell: sh
-                  outputs:
-                    - foo
-              - name: two
-                type: script
-                spec:
-                  image: alpine
-                  run: echo <+steps.one_test.output.outputVariables.foo>
-                  pull: always
+                  steps:
+                    - name: one test
+                      type: script
+                      spec:
+                        image: alpine
+                        run: |-
+                          echo golang
+                          export foo=bar
+                        shell: sh
+                        outputs:
+                          - foo
+                    - name: two
+                      type: script
+                      spec:
+                        image: alpine
+                        run: echo <+steps.one_test.output.outputVariables.foo>
+                        pull: always
