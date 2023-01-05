@@ -15,7 +15,7 @@ stages:
           spec:
             image: alpine
             run: |-
-              echo <+inputs.foo>
+              echo golang
               export foo=bar
             shell: sh
             outputs:
@@ -26,3 +26,14 @@ stages:
             image: alpine
             run: echo <+steps.one_test.output.outputVariables.foo>
             pull: always
+        - name: docker build push
+          type: plugin
+          spec:
+            image: plugins/docker
+            with:
+              username: raghavharness
+              password: <+secrets.get("dockerpat")>
+              repo: raghavharness/test
+              tags: latest
+              dockerfile: Dockerfile2
+            pull: if-not-exists
