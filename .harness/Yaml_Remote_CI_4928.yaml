@@ -32,7 +32,7 @@ stages:
             image: plugins/docker
             with:
               username: raghavharness
-              password: <+secrets.get("dockerpat")>
+              password: d7f202f2-1f12-4311-825f-912582760041
               repo: raghavharness/test
               tags: latest
               dockerfile: Dockerfile2
