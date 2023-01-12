@@ -1,29 +1,21 @@
-pipeline:
-  name: Yaml Simpl Remote 1000
-  identifier: Yaml_Simpl_Remote_1000
-  projectIdentifier: dev
-  orgIdentifier: default
-  tags: {}
-  stages:
-    - stage:
-        name: stage1
-        identifier: stage1
-        description: ""
-        type: CI
-        spec:
-          cloneCodebase: false
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Cloud
-            spec: {}
-          execution:
-            steps:
-              - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
-                  spec:
-                    shell: Sh
-                    command: echo "helloo"
+version: 1
+name: Yaml_Simpl_Remote_1000
+stages:
+  - name: output variable
+    type: ci
+    spec:
+      steps:
+        - name: one test
+          type: script
+          spec:
+            image: alpine
+            run: export foo=bar
+            shell: sh
+            outputs:
+              - foo
+        - name: two
+          type: script
+          spec:
+            image: alpine
+            run: echo <+steps.one_test.output.outputVariables.foo>
+            pull: always
