@@ -1,0 +1,22 @@
+---
+version: 1
+stages:
+- name: "output variable"
+  type: "ci"
+  spec:
+    steps:
+    - name: "one test"
+      type: "script"
+      spec:
+        image: "alpine"
+        run: "export foo=bar"
+        shell: "sh"
+        outputs:
+        - "foo"
+    - name: "two"
+      type: "script"
+      spec:
+        image: "alpine"
+        run: "echo <+steps.one_test.output.outputVariables.foo>"
+        pull: "always"
+name: "Yaml_Simpl_Remote_1001 - Clone"
