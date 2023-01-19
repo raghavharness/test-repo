@@ -36,8 +36,6 @@ pipeline:
                     image: <+input>
                     shell: Sh
                     command: echo "hello"
-                    envVariables:
-                      dcdds: <+pipeline.variables.ACCOUNT>
   variables:
     - name: ACCOUNT
       type: String
