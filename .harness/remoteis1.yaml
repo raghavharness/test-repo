@@ -1,31 +1,27 @@
 inputSet:
-  identifier: "remoteis1"
-  name: "remoteis1"
+  name: remoteis1
   tags: {}
-  orgIdentifier: "default"
-  projectIdentifier: "RaghavTest"
+  identifier: remoteis1
+  orgIdentifier: default
+  projectIdentifier: RaghavTest
   pipeline:
-    identifier: "RP"
+    identifier: RP
     properties:
       ci:
         codebase:
           build:
-            type: "branch"
+            type: branch
             spec:
-              branch: "main"
+              branch: main
     stages:
-    - stage:
-        identifier: "Stage"
-        type: "CI"
-        spec:
-          execution:
-            steps:
-            - step:
-                identifier: "Echo"
-                type: "Run"
-                spec:
-                  image: "alpine"
-    variables:
-    - name: "ACCOUNT"
-      type: "String"
-      value: "608178844183"
+      - stage:
+          identifier: Stage
+          type: CI
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: Echo
+                    type: Run
+                    spec:
+                      image: <+input>
