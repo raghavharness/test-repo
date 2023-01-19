@@ -7,7 +7,8 @@ pipeline:
   properties:
     ci:
       codebase:
-        connectorRef: RaghavTest
+        connectorRef: <+pipeline.name>
+        repoName: <+pipeline.name>
         build: <+input>
   stages:
     - stage:
