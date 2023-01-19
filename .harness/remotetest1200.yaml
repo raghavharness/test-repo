@@ -5,18 +5,6 @@ inputs:
     type: string
     desc: image name
     default: golang
-  repo:
-    type: string
-    desc: repository name
-    required: true
-    prompt: true
-  count:
-    type: number
-  password:
-    type: secret
-    desc: docker password
-    enums: [secret1, secret2]
-    required: true
 stages:
   - name: output variable
     type: ci
@@ -25,7 +13,7 @@ stages:
         - name: one test
           type: script
           spec:
-            image: alpine
+            image: <+inputs.image>
             run: export foo=bar
             shell: sh
             outputs:
