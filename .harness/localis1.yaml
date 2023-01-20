@@ -1,19 +1,44 @@
 inputSet:
   name: localis1
+  tags: {}
   identifier: localis1
   orgIdentifier: default
   projectIdentifier: dev
   pipeline:
     identifier: remotetest
+    name: remotetest
+    projectIdentifier: dev
+    orgIdentifier: default
+    tags: {}
     stages:
       - stage:
           identifier: stage1
           type: CI
+          name: stage1
           spec:
+            cloneCodebase: true
+            platform:
+              os: Linux
+              arch: Amd64
+            runtime:
+              type: Cloud
+              spec: {}
             execution:
               steps:
                 - step:
                     identifier: Run_1
                     type: Run
+                    name: Run_1
                     spec:
+                      connectorRef: account.docker
                       image: alpine
+                      shell: Sh
+                      command: echo "hello"
+    properties:
+      ci:
+        codebase:
+          connectorRef: account.GithubConnector
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
