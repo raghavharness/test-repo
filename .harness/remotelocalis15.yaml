@@ -1,0 +1,6 @@
+version: 1
+name: set3
+repository:
+  reference:
+    type: branch
+    value: master
