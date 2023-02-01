@@ -6,7 +6,6 @@ inputs:
     desc: image name
     default: golang
 repository:
-  connector: account.mvn
   depth: 200
 stages:
   - name: output variable
