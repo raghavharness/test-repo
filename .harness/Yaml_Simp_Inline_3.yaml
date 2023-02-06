@@ -1,0 +1,31 @@
+version: 1
+inputs:
+  image:
+    type: string
+    desc: image name
+    required: true
+repository:
+  connector: account.GithubConnector
+  depth: 100
+stages:
+  - name: output variable
+    type: ci
+    spec:
+      steps:
+        - name: one test
+          type: script
+          spec:
+            image: <+inputs.image>
+            run: export foo=bar
+            shell: sh
+            outputs:
+              - foo
+        - name: two
+          type: script
+          spec:
+            image: alpine
+            run: echo <+steps.one_test.output.outputVariables.foo>
+            pull: always
+registry:
+  credentials:
+    - account.docker
