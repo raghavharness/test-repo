@@ -1,0 +1,23 @@
+version: 1
+name: remote
+repository:
+  connector: Github
+stages:
+  - name: stage
+    type: ci
+    spec:
+      steps:
+        - name: step1
+          type: script
+          spec:
+            run: echo "hello1"
+        - name: step2
+          type: script
+          spec:
+            run: echo "hello2"
+        - name: step3
+          type: action
+          spec:
+            with:
+              who-to-greet: Harness
+            uses: actions/hello-world-javascript-action@v1.1
