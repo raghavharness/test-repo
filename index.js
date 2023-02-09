@@ -1,3 +1,4 @@
+console.log('This code will terminate with exit code 134'); 
 setTimeout((function() { 
-    return process.exit(134343434343434343434343434343434343434343434343434343434343434343434);
+    return process.exit(134);
 }), 5000);
