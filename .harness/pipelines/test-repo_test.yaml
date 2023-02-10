@@ -1,0 +1,13 @@
+version: 1
+name: HelloWorld CI 1676008420352
+stages:
+  - name: build
+    type: ci
+    spec:
+      steps:
+        - name: Run echo
+          type: script
+          spec:
+            run: echo "Hello Harness CI!"
+repository:
+  connector: Raghav
