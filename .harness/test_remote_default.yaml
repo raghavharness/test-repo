@@ -1,29 +1,13 @@
-pipeline:
-  name: test_remote_default
-  identifier: test_remote_default
-  projectIdentifier: dev
-  orgIdentifier: default
-  tags: {}
-  stages:
-    - stage:
-        name: stage
-        identifier: stage
-        description: ""
-        type: CI
-        spec:
-          cloneCodebase: false
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Cloud
-            spec: {}
-          execution:
-            steps:
-              - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
-                  spec:
-                    shell: Sh
-                    command: echo helloo
+version: 1
+name: test_remote_default
+stages:
+  - name: build
+    type: ci
+    spec:
+      steps:
+        - name: Run echo
+          type: script
+          spec:
+            run: echo "Hello Harness CI!"
+repository:
+  connector: account.GithubAccountConnector
