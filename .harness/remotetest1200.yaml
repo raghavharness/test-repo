@@ -5,8 +5,9 @@ inputs:
     type: string
     desc: image name
     default: golang
-repository:
-  depth: 200
+options:
+  clone:
+    depth: 200
 stages:
   - name: output variable
     type: ci
