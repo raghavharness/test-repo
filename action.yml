@@ -12,8 +12,15 @@ outputs:
   time:
     description: 'The time we greeted you'
 
-runs:
-  shell: bash
-  command: |
-    # Replace the following line with the name of your shell script file
-    git rev-parse HEAD
+jobs:
+  run-shell-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Run the shell script
+        run: |
+          # Replace the following line with the actual content of your shell script
+          git rev-parse HEAD
