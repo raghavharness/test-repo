@@ -6,7 +6,7 @@ jobs:
     runs-on: -self-hosted
     steps:
     - id: stepId
-      uses: actions/hello-world-javascript-action@v1.1
+      uses: actions/hello-world-javascript-action@main
       with:
         who-to-greet: raghav
       env:
