@@ -1,0 +1,15 @@
+inputSet:
+  name: is1
+  identifier: is1
+  orgIdentifier: default
+  projectIdentifier: RaghavTest
+  pipeline:
+    identifier: RPtest
+    properties:
+      ci:
+        codebase:
+          build:
+            type: tag
+            spec:
+              tag: <+trigger.tag>
+  object Object: pipeline.properties.ci.codebase
