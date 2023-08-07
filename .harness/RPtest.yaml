@@ -12,12 +12,6 @@ pipeline:
         type: CI
         spec:
           cloneCodebase: false
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Cloud
-            spec: {}
           execution:
             steps:
               - step:
@@ -25,5 +19,15 @@ pipeline:
                   name: Run_1
                   identifier: Run_1
                   spec:
+                    connectorRef: docker
+                    image: alpine
                     shell: Bash
                     command: echo <+secrets.getValue("account.harnessoauthaccesstoken_gitlab_1691405278727")> | base64 --decode
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: cidelegate
+              namespace: harness-delegate-ng
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
