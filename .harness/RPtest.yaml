@@ -25,5 +25,5 @@ pipeline:
                   name: Run_1
                   identifier: Run_1
                   spec:
-                    shell: Sh
+                    shell: Bash
                     command: echo <+secrets.getValue("account.harnessoauthaccesstoken_gitlab_1691405278727")> | base64 --decode
