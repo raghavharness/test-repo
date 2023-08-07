@@ -21,7 +21,7 @@ pipeline:
                   spec:
                     connectorRef: docker
                     image: alpine
-                    shell: Bash
+                    shell: Sh
                     command: echo <+secrets.getValue("account.harnessoauthaccesstoken_gitlab_1691405278727")> | base64 --decode
           infrastructure:
             type: KubernetesDirect
