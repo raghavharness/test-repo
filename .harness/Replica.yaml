@@ -171,3 +171,27 @@ pipeline:
             spec: {}
         when:
           pipelineStatus: Success
+        variables:
+          - name: CYPRESS_IMAGE
+            type: String
+            value: cypress/browsers:node16.14.2-slim-chrome103-ff102
+          - name: CYPRESS_API_URL
+            type: String
+            value: https://director-cy.qa.harness.io/
+          - name: GIT_BOT_TOKEN
+            type: Secret
+            value: account.githubbotharnesstoken
+          - name: CYPRESS_PROJECT_ID
+            type: String
+            value: <+input>
+          - name: CYPRESS_KEY
+            type: String
+            value: <+input>
+          - name: SPECS_PATH
+            type: String
+            value: <+input>
+          - name: CI_ENABLE_BARE_METAL
+            type: String
+            description: ""
+            required: false
+            value: "true"
