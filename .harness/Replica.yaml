@@ -1,0 +1,230 @@
+pipeline:
+  name: Replica
+  identifier: Replica
+  projectIdentifier: dev
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.CItestGitConnector9ne3MYKKu4
+        build: <+input>
+  stages:
+    - stage:
+        name: build
+        identifier: build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Get Hash
+                  identifier: Get_Hash
+                  spec:
+                    connectorRef: account.DockerAnonymous
+                    image: <+stage.variables.CYPRESS_IMAGE>
+                    shell: Sh
+                    command: |-
+                      export YARN_LOCK_HASH=$(openssl sha1 yarn.lock | cut -c 22-)
+                      export CYPRESS_YARN_LOCK_HASH=$(openssl sha1 cypress/yarn.lock | cut -c 26-)
+                    outputVariables:
+                      - name: YARN_LOCK_HASH
+                      - name: CYPRESS_YARN_LOCK_HASH
+              - step:
+                  type: RestoreCacheGCS
+                  name: Restore NPM
+                  identifier: Restore_NPM
+                  spec:
+                    connectorRef: account.gcpplatform
+                    bucket: ui-team-bucket
+                    key: nodeModules-<+execution.steps.Get_Hash.output.outputVariables.YARN_LOCK_HASH>
+                    archiveFormat: Tar
+                    resources:
+                      limits:
+                        memory: 8Gi
+                        cpu: 4000m
+              - step:
+                  type: RestoreCacheGCS
+                  name: Restore Cypress NPM
+                  identifier: Restore_Cypress_NPM
+                  spec:
+                    connectorRef: account.gcpplatform
+                    bucket: ui-team-bucket
+                    key: nodeModules-<+execution.steps.Get_Hash.output.outputVariables.CYPRESS_YARN_LOCK_HASH>
+                    archiveFormat: Tar
+                    resources:
+                      limits:
+                        memory: 8Gi
+                        cpu: 4000m
+              - step:
+                  type: Run
+                  name: Install Node Modules
+                  identifier: Install_Node_Modules
+                  spec:
+                    connectorRef: account.DockerAnonymous
+                    image: <+stage.variables.CYPRESS_IMAGE>
+                    shell: Bash
+                    command: |-
+                      echo @harness:registry=https://npm.pkg.github.com > .npmrc
+                      echo "//npm.pkg.github.com/:_authToken="$GIT_BOT_TOKEN >> .npmrc
+                      echo always-auth=true >> .npmrc
+                      export CYPRESS_CACHE_FOLDER=/harness/.cypress_cache
+                      yarn install --immutable
+                      cd cypress
+                      yarn install --immutable
+                    privileged: false
+                    envVariables:
+                      GIT_BOT_TOKEN: <+stage.variables.GIT_BOT_TOKEN>
+                    resources:
+                      limits:
+                        memory: 8Gi
+                        cpu: 4000m
+              - step:
+                  type: SaveCacheGCS
+                  name: Save NPM
+                  identifier: Save_NPM
+                  spec:
+                    connectorRef: account.gcpplatform
+                    bucket: ui-team-bucket
+                    key: nodeModules-<+execution.steps.Get_Hash.output.outputVariables.YARN_LOCK_HASH>
+                    sourcePaths:
+                      - node_modules
+                    archiveFormat: Tar
+                    resources:
+                      limits:
+                        memory: 8Gi
+                        cpu: 4000m
+              - step:
+                  type: SaveCacheGCS
+                  name: Save Cypress NPM
+                  identifier: Save_Cypress_NPM
+                  spec:
+                    connectorRef: account.gcpplatform
+                    bucket: ui-team-bucket
+                    key: nodeModules-<+execution.steps.Get_Hash.output.outputVariables.CYPRESS_YARN_LOCK_HASH>
+                    sourcePaths:
+                      - cypress/node_modules
+                      - .cypress_cache
+                    archiveFormat: Tar
+                    resources:
+                      limits:
+                        memory: 8Gi
+                        cpu: 4000m
+              - step:
+                  type: Background
+                  name: Cypress Server
+                  identifier: Cypress_Server
+                  spec:
+                    shell: Sh
+                    command: |-
+                      set -e
+                      yarn generate-certificate
+
+                      # start the mock node server
+                      node ./cypress/server.js &
+
+                      yarn dev:cypress
+                    resources:
+                      limits:
+                        memory: 8Gi
+                        cpu: 4000m
+                    connectorRef: account.DockerAnonymous
+                    image: <+stage.variables.CYPRESS_IMAGE>
+                    portBindings:
+                      "8080": "8080"
+                      "8181": "8181"
+              - step:
+                  type: Background
+                  name: X11 Server
+                  identifier: X11_Server
+                  spec:
+                    shell: Sh
+                    command: |-
+                      set -e
+                      export CYPRESS_CACHE_FOLDER=/harness/.cypress_cache
+
+                      export CYPRESS_PROJECT_ID="${CYPRESS_PROJECT_ID}"
+
+                      export CYPRESS_API_URL="https://director-cy.qa.harness.io"
+
+                      Xvfb -screen 0 1024x768x24 :99 &
+              - step:
+                  type: Run
+                  name: NPM Install
+                  identifier: NPM_Install
+                  spec:
+                    shell: Sh
+                    command: |-
+                      set -e
+
+                      export CYPRESS_CACHE_FOLDER=/harness/.cypress_cache
+
+                      export CYPRESS_PROJECT_ID="${CYPRESS_PROJECT_ID}"
+
+                      export CYPRESS_API_URL="https://director-cy.qa.harness.io"
+
+                      cd cypress
+                      npm install -g npm@9.4.2 -y
+              - step:
+                  name: run tests
+                  identifier: run_tests
+                  type: Run
+                  timeout: 4h
+                  spec:
+                    shell: Bash
+                    command: |-
+                      set -e
+
+                      export CYPRESS_CACHE_FOLDER=/harness/.cypress_cache
+
+                      export CYPRESS_PROJECT_ID="${CYPRESS_PROJECT_ID}"
+
+                      export CYPRESS_API_URL="https://director-cy.qa.harness.io"
+
+                      # required for Xfvb
+                      export DISPLAY=:99
+
+                      curl ifconfig.io
+
+                      cd cypress
+
+                      command="npx wait-on https://localhost:8181"
+                      timeout 120 $command
+
+                      if [ $? -ne 0 ]; then
+                        echo "Command timed out or failed: $command"
+                        exit 1
+                      fi
+
+                      echo "Command succeeded: $command"
+
+                      npx cy2 run --browser chrome --record --key $CYPRESS_KEY --parallel --group chrome --ci-build-id $SEQUENCE_ID --spec $SPECS_PATH
+                    privileged: false
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - ./cypress/*.xml
+                    envVariables:
+                      CYPRESS_KEY: <+stage.variables.CYPRESS_KEY>
+                      SEQUENCE_ID: <+pipeline.sequenceId>
+                      CYPRESS_PROJECT_ID: <+stage.variables.CYPRESS_PROJECT_ID>
+                      SPECS_PATH: <+stage.variables.SPECS_PATH>
+                      CYPRESS_API_URL: <+stage.variables.CYPRESS_API_URL>
+                    resources:
+                      limits:
+                        memory: 8Gi
+                        cpu: 4000m
+                  strategy:
+                    parallelism: <+input>
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+        when:
+          pipelineStatus: Success
