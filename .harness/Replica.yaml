@@ -189,8 +189,3 @@ pipeline:
           - name: SPECS_PATH
             type: String
             value: <+input>
-          - name: CI_ENABLE_BARE_METAL
-            type: String
-            description: ""
-            required: false
-            value: "true"
