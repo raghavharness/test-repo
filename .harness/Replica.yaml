@@ -34,32 +34,6 @@ pipeline:
                       - name: YARN_LOCK_HASH
                       - name: CYPRESS_YARN_LOCK_HASH
               - step:
-                  type: RestoreCacheGCS
-                  name: Restore NPM
-                  identifier: Restore_NPM
-                  spec:
-                    connectorRef: account.gcpplatform
-                    bucket: ui-team-bucket
-                    key: nodeModules-<+execution.steps.Get_Hash.output.outputVariables.YARN_LOCK_HASH>
-                    archiveFormat: Tar
-                    resources:
-                      limits:
-                        memory: 8Gi
-                        cpu: 4000m
-              - step:
-                  type: RestoreCacheGCS
-                  name: Restore Cypress NPM
-                  identifier: Restore_Cypress_NPM
-                  spec:
-                    connectorRef: account.gcpplatform
-                    bucket: ui-team-bucket
-                    key: nodeModules-<+execution.steps.Get_Hash.output.outputVariables.CYPRESS_YARN_LOCK_HASH>
-                    archiveFormat: Tar
-                    resources:
-                      limits:
-                        memory: 8Gi
-                        cpu: 4000m
-              - step:
                   type: Run
                   name: Install Node Modules
                   identifier: Install_Node_Modules
@@ -78,37 +52,6 @@ pipeline:
                     privileged: false
                     envVariables:
                       GIT_BOT_TOKEN: <+stage.variables.GIT_BOT_TOKEN>
-                    resources:
-                      limits:
-                        memory: 8Gi
-                        cpu: 4000m
-              - step:
-                  type: SaveCacheGCS
-                  name: Save NPM
-                  identifier: Save_NPM
-                  spec:
-                    connectorRef: account.gcpplatform
-                    bucket: ui-team-bucket
-                    key: nodeModules-<+execution.steps.Get_Hash.output.outputVariables.YARN_LOCK_HASH>
-                    sourcePaths:
-                      - node_modules
-                    archiveFormat: Tar
-                    resources:
-                      limits:
-                        memory: 8Gi
-                        cpu: 4000m
-              - step:
-                  type: SaveCacheGCS
-                  name: Save Cypress NPM
-                  identifier: Save_Cypress_NPM
-                  spec:
-                    connectorRef: account.gcpplatform
-                    bucket: ui-team-bucket
-                    key: nodeModules-<+execution.steps.Get_Hash.output.outputVariables.CYPRESS_YARN_LOCK_HASH>
-                    sourcePaths:
-                      - cypress/node_modules
-                      - .cypress_cache
-                    archiveFormat: Tar
                     resources:
                       limits:
                         memory: 8Gi
