@@ -65,6 +65,7 @@ pipeline:
                     shell: Sh
                     command: |-
                       set -e
+                      export CI=true
                       yarn generate-certificate
 
                       # start the mock node server
