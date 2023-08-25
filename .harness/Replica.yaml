@@ -160,8 +160,6 @@ pipeline:
                       limits:
                         memory: 8Gi
                         cpu: 4000m
-                  strategy:
-                    parallelism: <+input>
           platform:
             os: Linux
             arch: Amd64
