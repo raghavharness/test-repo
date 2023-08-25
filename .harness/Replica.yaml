@@ -13,7 +13,6 @@ pipeline:
     - stage:
         name: build
         identifier: build
-        description: ""
         type: CI
         spec:
           cloneCodebase: true
@@ -24,7 +23,7 @@ pipeline:
                   name: Get Hash
                   identifier: Get_Hash
                   spec:
-                    connectorRef: account.DockerAnonymous
+                    connectorRef: account.docker
                     image: <+stage.variables.CYPRESS_IMAGE>
                     shell: Sh
                     command: |-
@@ -38,7 +37,7 @@ pipeline:
                   name: Install Node Modules
                   identifier: Install_Node_Modules
                   spec:
-                    connectorRef: account.DockerAnonymous
+                    connectorRef: account.docker
                     image: <+stage.variables.CYPRESS_IMAGE>
                     shell: Bash
                     command: |-
@@ -61,6 +60,8 @@ pipeline:
                   name: Cypress Server
                   identifier: Cypress_Server
                   spec:
+                    connectorRef: account.docker
+                    image: <+stage.variables.CYPRESS_IMAGE>
                     shell: Sh
                     command: |-
                       set -e
@@ -70,15 +71,13 @@ pipeline:
                       node ./cypress/server.js &
 
                       yarn dev:cypress
+                    portBindings:
+                      "8080": "8080"
+                      "8181": "8181"
                     resources:
                       limits:
                         memory: 8Gi
                         cpu: 4000m
-                    connectorRef: account.DockerAnonymous
-                    image: <+stage.variables.CYPRESS_IMAGE>
-                    portBindings:
-                      "8080": "8080"
-                      "8181": "8181"
               - step:
                   type: Background
                   name: X11 Server
