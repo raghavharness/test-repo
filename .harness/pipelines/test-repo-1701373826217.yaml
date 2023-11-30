@@ -28,7 +28,7 @@ pipeline:
                   identifier: gotest
                   name: go_test
                   spec:
-                    command: go zxscsesxst -v ./...
+                    command: go ccc -v ./...
                   timeout: ""
                   type: Run
               - step:
