@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_test_repo_1701373843323-push-trigger-input-set
+  identifier: Build_test_repo_1701373843323pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: dev
+  pipeline:
+    identifier: Build_test_repo_1701373843323
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
