@@ -5,7 +5,7 @@ fffHGOO + Docker + unit tests
 ##fff Running the app locally
 
 ```yyyybash hello
-$ go build
+$ go buildfgg
 $ ./go-sample-app
 2019/02/03 11:38:11 Starting Server
 ```
