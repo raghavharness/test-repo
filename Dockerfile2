@@ -1,3 +1,6 @@
+FROM nginx:alpine AS initial
+CMD echo "Hello world"
+ARG BASE_IMAGE
 FROM ${BASE_IMAGE:-raghavharness/alpine} AS env-stage
 CMD echo "Hello world"
 ENTRYPOINT echo "Hello world"
