@@ -1,3 +1,3 @@
-FROM raghavharness/alpine
+FROM ${BASE_IMAGE:-raghavharness/alpine} AS env-stage
 CMD echo "Hello world"
 ENTRYPOINT echo "Hello world"
