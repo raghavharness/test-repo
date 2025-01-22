@@ -1,8 +1,8 @@
 ARG BASE_IMAGE
-FROM ${BASE_IMAGE:-raghavharness/alpine} AS env-stage
+FROM ${BASE_IMAGE:-raghavharness/lite-engine:tid2} AS env-stage
 CMD echo "Hello world"
 
 # Deploy the application binary into a lean image
-FROM ${BASE_IMAGE:-raghavharness/lite-engine:tid2} AS build-release-stage
+FROM ${BASE_IMAGE:-raghavharness/alpine} AS build-release-stage
 CMD echo "Hello world"
 ENTRYPOINT echo "Hello world"
