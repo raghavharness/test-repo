@@ -1,0 +1,36 @@
+pipeline:
+  tags: {}
+  projectIdentifier: RaghavTest
+  orgIdentifier: default
+  stages:
+    - stage:
+        name: build
+        identifier: build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: false
+          caching:
+            enabled: false
+            paths: []
+          buildIntelligence:
+            enabled: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: echo hello
+        strategy:
+          parallelism: 10
+  identifier: trigger_1
+  name: trigger_1
