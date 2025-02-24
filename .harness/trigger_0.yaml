@@ -31,3 +31,5 @@ pipeline:
                   spec:
                     shell: Sh
                     command: echo hello
+        strategy:
+          parallelism: 10
