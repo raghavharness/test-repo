@@ -24,12 +24,11 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
-                  spec:
-                    shell: Sh
-                    command: echo hello
+                  name: echo hello
+                  identifier: echo_hello
+                  template:
+                    templateRef: account.DataRobottest
+                    versionLabel: v1
         strategy:
           parallelism: 10
   identifier: trigger_4
