@@ -26,13 +26,6 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
-                  spec:
-                    shell: Sh
-                    command: echo hello
-              - step:
                   name: Echo hello
                   identifier: Echo_hello
                   template:
