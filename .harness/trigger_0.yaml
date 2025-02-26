@@ -32,5 +32,11 @@ pipeline:
                   spec:
                     shell: Sh
                     command: echo hello
+              - step:
+                  name: Echo hello
+                  identifier: Echo_hello
+                  template:
+                    templateRef: account.DataRobottest
+                    versionLabel: v1
         strategy:
           parallelism: 10
