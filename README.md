@@ -7,7 +7,7 @@ fffHGOO + Docker + unit tests
 ```yyyybash hello
 $ go build
 $ ./go-sample-app
-2019/02/03 11:38:11 Starting Server
+2019/02/03 11:38:11 Starting Serverdfd
 ```
 
 asffffh
