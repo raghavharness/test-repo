@@ -1,0 +1,26 @@
+pom.xml
+  2c09998e-f04f-4831-9a16-10c4469cc771 1-35
+src/main/java/com/example/App.java
+  2c09998e-f04f-4831-9a16-10c4469cc771 1-13
+src/test/java/com/example/AppTest.java
+  2c09998e-f04f-4831-9a16-10c4469cc771 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2343f227b3d07307f9fa9a46d778cad6059bbe5e",
+  "prompts": {
+    "cbc24d00c9f81823": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "2c09998e-f04f-4831-9a16-10c4469cc771",
+        "model": "kimi-k3"
+      },
+      "human_author": "Raghav <raghav.gupta@harness.io>",
+      "total_additions": 59,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  }
+}
